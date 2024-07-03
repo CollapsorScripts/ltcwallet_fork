@@ -4,4 +4,3 @@ vendor
 coverage.txt
 *.swp
 .vscode
-ltcd
