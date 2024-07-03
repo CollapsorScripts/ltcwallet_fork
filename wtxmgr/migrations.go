@@ -89,7 +89,7 @@ func (m *MigrationManager) Versions() []migration.Version {
 // dropTransactionHistory is a migration that attempts to recreate the
 // transaction store with a clean state.
 func dropTransactionHistory(ns walletdb.ReadWriteBucket) error {
-	log.Info("Dropping wallet transaction history")
+	log.Info("Удаление истории транзакций кошелька")
 
 	// To drop the store's transaction history, we'll need to remove all of
 	// the relevant descendant buckets and key/value pairs.

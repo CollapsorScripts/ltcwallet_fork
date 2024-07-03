@@ -36,7 +36,7 @@ func (s *Store) insertMemPoolTx(ns walletdb.ReadWriteBucket, rec *TxRecord) erro
 		}
 	}
 
-	log.Infof("Inserting unconfirmed transaction %v", rec.Hash)
+	log.Infof("Вставка неподтвержденной транзакции %v", rec.Hash)
 	v, err := valueTxRecord(rec)
 	if err != nil {
 		return err
@@ -98,7 +98,7 @@ func (s *Store) removeDoubleSpends(ns walletdb.ReadWriteBucket, rec *TxRecord) e
 				return err
 			}
 
-			log.Debugf("Removing double spending transaction %v",
+			log.Debugf("Удаление транзакции двойной траты %v",
 				doubleSpend.Hash)
 
 			if err := s.removeConflict(ns, &doubleSpend); err != nil {
@@ -139,7 +139,7 @@ func (s *Store) removeConflict(ns walletdb.ReadWriteBucket, rec *TxRecord) error
 				return err
 			}
 
-			log.Debugf("Transaction %v is part of a removed conflict "+
+			log.Debugf("Транзакция %v является частью удаленного конфликта "+
 				"chain -- removing as well", spender.Hash)
 			if err := s.removeConflict(ns, &spender); err != nil {
 				return err

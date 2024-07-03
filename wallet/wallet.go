@@ -3160,6 +3160,8 @@ func (w *Wallet) newAddress(addrmgrNs walletdb.ReadWriteBucket, account uint32,
 		return nil, nil, err
 	}
 
+	log.Debugf("Сгенерирован новый адрес для кошелька %d: %s", account, addrs[0].Address().String())
+
 	return addrs[0].Address(), props, nil
 }
 

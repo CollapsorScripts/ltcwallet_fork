@@ -54,13 +54,13 @@ go 1.18
 
 replace github.com/ltcsuite/ltcwallet/walletdb => ./walletdb
 
-replace github.com/ltcsuite/neutrino => ./neutrino
+replace github.com/ltcsuite/neutrino => ../neutrino
 
-replace github.com/ltcsuite/neutrino/cache => ./neutrino/cache
+replace github.com/ltcsuite/neutrino/cache => ../neutrino/cache
 
-replace github.com/ltcsuite/lnd/tlv => ./lnd/tlv
+replace github.com/ltcsuite/lnd/tlv => ../lnd/tlv
 
-replace github.com/ltcsuite/ltcd/ltcutil/psbt => ./ltcd/ltcutil/psbt
+replace github.com/ltcsuite/ltcd/ltcutil/psbt => ../ltcd/ltcutil/psbt
 
 replace github.com/ltcsuite/ltcwallet/wallet/txauthor => ./wallet/txauthor
 
@@ -68,6 +68,6 @@ replace github.com/ltcsuite/ltcwallet/wallet/txsizes => ./wallet/txsizes
 
 // loshy temp:
 
-replace github.com/ltcsuite/ltcd => ./ltcd
+replace github.com/ltcsuite/ltcd => ../ltcd
 
-replace github.com/ltcsuite/ltcd/chaincfg/chainhash => ./ltcd/chaincfg/chainhash
+replace github.com/ltcsuite/ltcd/chaincfg/chainhash => ../ltcd/chaincfg/chainhash

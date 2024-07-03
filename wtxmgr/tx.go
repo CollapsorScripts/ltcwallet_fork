@@ -442,7 +442,7 @@ func (s *Store) insertMinedTx(ns walletdb.ReadWriteBucket, rec *TxRecord,
 	// If this transaction previously existed within the store as unmined,
 	// we'll need to remove it from the unmined bucket.
 	if v := existsRawUnmined(ns, rec.Hash[:]); v != nil {
-		log.Infof("Marking unconfirmed transaction %v mined in block %d",
+		log.Infof("Маркировка неподтвержденной транзакции %v добытый в блоке %d",
 			&rec.Hash, block.Height)
 
 		if err := s.deleteUnminedTx(ns, rec); err != nil {
@@ -503,7 +503,7 @@ func (s *Store) addCredit(ns walletdb.ReadWriteBucket, rec *TxRecord, block *Blo
 			return false, nil
 		}
 		if _, tv := latestTxRecord(ns, &rec.Hash); tv != nil {
-			log.Tracef("Ignoring credit for existing confirmed transaction %v",
+			log.Tracef("Игнорирование кредита для существующей подтвержденной транзакции %v",
 				rec.Hash.String())
 			return false, nil
 		}
@@ -517,7 +517,7 @@ func (s *Store) addCredit(ns walletdb.ReadWriteBucket, rec *TxRecord, block *Blo
 	}
 
 	txOutAmt := ltcutil.Amount(rec.MsgTx.TxOut[index].Value)
-	log.Debugf("Marking transaction %v output %d (%v) spendable",
+	log.Debugf("Маркировка транзакции %v, выход %d (%v) подлежит расходованию",
 		rec.Hash, index, txOutAmt)
 
 	cred := credit{
@@ -579,7 +579,7 @@ func (s *Store) rollback(ns walletdb.ReadWriteBucket, height int32) error {
 
 		heightsToRemove = append(heightsToRemove, it.elem.Height)
 
-		log.Infof("Rolling back %d transactions from block %v height %d",
+		log.Infof("Откат %d транзакций с блока %v высотой %d",
 			len(b.transactions), b.Hash, b.Height)
 
 		for i := range b.transactions {
@@ -782,7 +782,7 @@ func (s *Store) rollback(ns walletdb.ReadWriteBucket, height int32) error {
 				return err
 			}
 
-			log.Debugf("Transaction %v spends a removed coinbase "+
+			log.Debugf("Транзакция %v тратит удаленную базу монет "+
 				"output -- removing as well", unminedRec.Hash)
 			err = s.removeConflict(ns, &unminedRec)
 			if err != nil {

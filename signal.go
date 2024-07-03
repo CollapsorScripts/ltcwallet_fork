@@ -54,11 +54,11 @@ func mainInterruptHandler() {
 	for {
 		select {
 		case sig := <-interruptChannel:
-			log.Infof("Received signal (%s).  Shutting down...", sig)
+			log.Infof("Полученный сигнал (%s).  Выключение...", sig)
 			invokeCallbacks()
 			return
 		case <-simulateInterruptChannel:
-			log.Info("Received shutdown request.  Shutting down...")
+			log.Info("Получен запрос на выключение.  Выключение...")
 			invokeCallbacks()
 			return
 

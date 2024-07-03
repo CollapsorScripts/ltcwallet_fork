@@ -54,7 +54,7 @@ func openRPCKeyPair() (tls.Certificate, error) {
 // possibly also the key in PEM format to the paths specified by the config.  If
 // successful, the new keypair is returned.
 func generateRPCKeyPair(writeKey bool) (tls.Certificate, error) {
-	log.Infof("Generating TLS certificates...")
+	log.Infof("Генерация TLS-сертификатов...")
 
 	// Create directories for cert and key files if they do not yet exist.
 	certDir, _ := filepath.Split(cfg.RPCCert.Value)
@@ -90,14 +90,14 @@ func generateRPCKeyPair(writeKey bool) (tls.Certificate, error) {
 		if err != nil {
 			rmErr := os.Remove(cfg.RPCCert.Value)
 			if rmErr != nil {
-				log.Warnf("Cannot remove written certificates: %v",
+				log.Warnf("Невозможно удалить записанные сертификаты: %v",
 					rmErr)
 			}
 			return tls.Certificate{}, err
 		}
 	}
 
-	log.Info("Done generating TLS certificates")
+	log.Info("Создание сертификатов TLS завершено.")
 	return keyPair, nil
 }
 
@@ -110,7 +110,7 @@ func startRPCServers(walletLoader *wallet.Loader) (*grpc.Server, *legacyrpc.Serv
 		err          error
 	)
 	if cfg.DisableServerTLS {
-		log.Info("Server TLS is disabled.  Only legacy RPC may be used")
+		log.Info("TLS сервер отключен. Можно использовать только устаревшие RPC.")
 	} else {
 		keyPair, err = openRPCKeyPair()
 		if err != nil {
@@ -140,10 +140,10 @@ func startRPCServers(walletLoader *wallet.Loader) (*grpc.Server, *legacyrpc.Serv
 			for _, lis := range listeners {
 				lis := lis
 				go func() {
-					log.Infof("Experimental RPC server listening on %s",
+					log.Infof("Экспериментальный RPC-сервер прослушивает: %s",
 						lis.Addr())
 					err := server.Serve(lis)
-					log.Tracef("Finished serving expimental RPC: %v",
+					log.Tracef("Завершено обслуживание экспериментального RPC: %v",
 						err)
 				}()
 			}
@@ -151,7 +151,7 @@ func startRPCServers(walletLoader *wallet.Loader) (*grpc.Server, *legacyrpc.Serv
 	}
 
 	if cfg.Username == "" || cfg.Password == "" {
-		log.Info("Legacy RPC server disabled (requires username and password)")
+		log.Info("Устаревший сервер RPC отключен (требуется имя пользователя и пароль)")
 	} else if len(cfg.LegacyRPCListeners) != 0 {
 		listeners := makeListeners(cfg.LegacyRPCListeners, legacyListen)
 		if len(listeners) == 0 {
@@ -212,7 +212,7 @@ func makeListeners(normalizedListenAddrs []string, listen listenFunc) []net.List
 		ip := net.ParseIP(host)
 		switch {
 		case ip == nil:
-			log.Warnf("`%s` is not a valid IP address", host)
+			log.Warnf("`%s` недействительный IP-адрес", host)
 		case ip.To4() == nil:
 			ipv6Addrs = append(ipv6Addrs, addr)
 		default:
@@ -223,7 +223,7 @@ func makeListeners(normalizedListenAddrs []string, listen listenFunc) []net.List
 	for _, addr := range ipv4Addrs {
 		listener, err := listen("tcp4", addr)
 		if err != nil {
-			log.Warnf("Can't listen on %s: %v", addr, err)
+			log.Warnf("Невозможно прослушать адрес %s: %v", addr, err)
 			continue
 		}
 		listeners = append(listeners, listener)
@@ -231,7 +231,7 @@ func makeListeners(normalizedListenAddrs []string, listen listenFunc) []net.List
 	for _, addr := range ipv6Addrs {
 		listener, err := listen("tcp6", addr)
 		if err != nil {
-			log.Warnf("Can't listen on %s: %v", addr, err)
+			log.Warnf("Невозможно прослушать адрес %s: %v", addr, err)
 			continue
 		}
 		listeners = append(listeners, listener)

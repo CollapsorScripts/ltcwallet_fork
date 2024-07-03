@@ -40,6 +40,7 @@ type NotificationServer struct {
 }
 
 func newNotificationServer(wallet *Wallet) *NotificationServer {
+	log.Debugf("Запуск сервера уведомлений")
 	return &NotificationServer{
 		spentness: make(map[uint32][]chan *SpentnessNotifications),
 		wallet:    wallet,
